@@ -77,6 +77,7 @@ class ClassIncremental(nn.Module):
         # optimizer
         milestones = [10, 20, 30, 40]
         optimizer = torch.optim.Adam([param for name, param in self.model.named_parameters() if "adapter" in name], lr=cfg.lr, weight_decay=0.0000)
+
         scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones, gamma=0.1, last_epoch=-1)
 
         # move model to device
@@ -123,7 +124,7 @@ class ClassIncremental(nn.Module):
                 optimizer.step()
                 optimizer.zero_grad()
             scheduler.step()
-        self.mix_layer_matrix
+        self.mix_layer_matrix()
         self.model.eval()
 
     def mix_layer_matrix(self):
